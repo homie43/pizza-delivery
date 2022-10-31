@@ -133,10 +133,14 @@ function App() {
           <div className="content__items">
             {pizzaData.map((pizza) => (
               <PizzaBlock
-                id={pizza.id}
-                imageUrl={pizza.imageUrl}
-                title={pizza.title}
-                price={pizza.price}
+                key={pizza.id}
+                // id={pizza.id}
+                // imageUrl={pizza.imageUrl}
+                // title={pizza.title}
+                // price={pizza.price}
+                // sizes={pizza.sizes}
+                // types={pizza.types}
+                {...pizza}
               />
             ))}
           </div>
