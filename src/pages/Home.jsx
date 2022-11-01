@@ -15,10 +15,11 @@ const Home = () => {
         setItems(arr);
         setIsLoading(false);
       });
+    window.scrollTo(0, 0); // чтоб при первом рендере пользователя скроллило вверх
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -31,7 +32,7 @@ const Home = () => {
               <PizzaBlock key={pizza.id} {...pizza} isLoading={isLoading} />
             ))}
       </div>
-    </>
+    </div>
   );
 };
 
