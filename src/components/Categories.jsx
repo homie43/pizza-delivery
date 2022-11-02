@@ -1,8 +1,6 @@
 import React from "react";
 
-const Categories = () => {
-  const [activeCategory, setActiveCategory] = React.useState(0); // состояние категорий
-
+const Categories = ({ categoryId, setCategoryId }) => {
   const categories = [
     "Все",
     "Мясные",
@@ -15,13 +13,13 @@ const Categories = () => {
   return (
     <div className="categories">
       <ul>
-        {categories.map((category, i) => (
+        {categories.map((categoryName, i) => (
           <li
             key={i} // лучше в key не передавать индекс, но тут спорно, тк список статичный и меняться не будет
-            onClick={() => setActiveCategory(i)}
-            className={activeCategory === i ? "active" : ""}
+            onClick={() => setCategoryId(i)}
+            className={categoryId === i ? "active" : ""}
           >
-            {category}
+            {categoryName}
           </li>
         ))}
       </ul>
