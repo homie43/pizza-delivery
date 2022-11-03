@@ -14,8 +14,9 @@
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 645px) {
-      flex-direction: column-reverse;
+    @media (max-width: 1026px) {
+      justify-content: center;
+      flex-direction: column;
     }
   }
 
