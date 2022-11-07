@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice";
 
@@ -27,20 +28,20 @@ const Home = () => {
     const order = sort.sortProperty.includes("-") ? "desc" : "asc"; // лютая конструкция, но она работает
     const search = searchValue ? `&search=${searchValue}` : ``;
 
-    fetch(
-      `https://635fd61dca0fe3c21aa5e0a7.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-    )
-      .then((result) => result.json())
+    axios
+      .get(
+        `https://635fd61dca0fe3c21aa5e0a7.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+      )
       .then((arr) => {
-        setItems(arr);
+        setItems(arr.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0); // чтоб при первом рендере пользователя скроллило вверх
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
-    console.log(id);
   };
 
   const skeletons = [...new Array(6)].map((_, index) => (
