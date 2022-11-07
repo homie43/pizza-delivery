@@ -1,28 +1,30 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCategoryId } from "../redux/slices/filterSlice";
+
 import Skeleton from "../components/Skeleton";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination/Pagination";
+
 import { AppContext } from "../App";
 
 const Home = () => {
   const { searchValue } = React.useContext(AppContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0); // состояние категорий
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [sortType, setSortType] = React.useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
+
+  const { categoryId, sort } = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     setIsLoading(true);
 
     const category = categoryId > 0 ? `category=${categoryId}` : ``;
-    const sortBy = sortType.sortProperty.replace("-", "");
-    const order = sortType.sortProperty.includes("-") ? "desc" : "asc"; // лютая конструкция, но она работает
+    const sortBy = sort.sortProperty.replace("-", "");
+    const order = sort.sortProperty.includes("-") ? "desc" : "asc"; // лютая конструкция, но она работает
     const search = searchValue ? `&search=${searchValue}` : ``;
 
     fetch(
@@ -34,7 +36,12 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0); // чтоб при первом рендере пользователя скроллило вверх
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+    console.log(id);
+  };
 
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
@@ -45,9 +52,9 @@ const Home = () => {
       <div className="content__top">
         <Categories
           categoryId={categoryId}
-          setCategoryId={(i) => setCategoryId(i)}
+          onChangeCategory={onChangeCategory}
         />
-        <Sort sortType={sortType} setSortType={(i) => setSortType(i)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
