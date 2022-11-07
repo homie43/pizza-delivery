@@ -2,26 +2,46 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 
+const sortList = [
+  { name: "популярности 👆", sortProperty: "rating" },
+  { name: "популярности 👇", sortProperty: "-rating" },
+  { name: "цене 👆", sortProperty: "price" },
+  { name: "цене 👇", sortProperty: "-price" },
+  { name: "алфавиту", sortProperty: "title" },
+];
+
 const Sort = () => {
   const [open, setOpen] = React.useState(false); // popup окно
-  const list = [
-    { name: "популярности 👆", sortProperty: "rating" },
-    { name: "популярности 👇", sortProperty: "-rating" },
-    { name: "цене 👆", sortProperty: "price" },
-    { name: "цене 👇", sortProperty: "-price" },
-    { name: "алфавиту", sortProperty: "title" },
-  ];
-
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
+  const sortRef = React.useRef();
 
   const onClickList = (obj) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log(event.composedPath());
+      let path = event.composedPath().includes(sortRef.current);
+      if (!path) {
+        setOpen(false);
+      }
+      // firefox не сработает
+      // if (!event.path.includes(sortRef.current)) {
+      //   setOpen(false);
+      // }
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
+
+    // когда компонент будет размонтирован, обработчик удалиться, чтобы избежать повторного монтирования при переходе на главную
+    return () => document.body.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -41,7 +61,7 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((obj, i) => (
+            {sortList.map((obj, i) => (
               <li
                 key={i}
                 onClick={() => onClickList(obj)}
