@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
+
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId } from "../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 
 import Skeleton from "../components/Skeleton";
 import Categories from "../components/Categories";
@@ -15,9 +16,10 @@ const Home = () => {
   const { searchValue } = React.useContext(AppContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
 
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector(
+    (state) => state.filter
+  );
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -48,6 +50,10 @@ const Home = () => {
     <Skeleton key={index} />
   ));
 
+  const onChangePage = (num) => {
+    dispatch(setCurrentPage(num));
+  };
+
   return (
     <div className="container">
       <div className="content__top">
@@ -69,7 +75,7 @@ const Home = () => {
                 <PizzaBlock key={pizza.id} {...pizza} isLoading={isLoading} />
               ))}
       </div>
-      <Pagination onChangePage={(num) => setCurrentPage(num)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };
