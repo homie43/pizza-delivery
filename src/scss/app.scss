@@ -86,6 +86,10 @@
     .content__title {
       margin: 0;
     }
+
+    @media (max-width: 425px) {
+      margin: 20px auto;
+    }
   }
 }
 
@@ -111,6 +115,10 @@
         stroke: $black;
         stroke-width: 1.9;
       }
+    }
+
+    @media (max-width: 425px) {
+      // font-size: 26px;
     }
   }
 
@@ -143,6 +151,17 @@
         color: darken($color: #b6b6b6, $amount: 50);
       }
     }
+
+    @media (max-width: 425px) {
+      span {
+        display: none;
+      }
+
+      svg {
+        width: 45px;
+        height: 45px;
+      }
+    }
   }
 
   .content__items {
@@ -165,6 +184,11 @@
       img {
         width: 80px;
         height: 80px;
+
+        @media (max-width: 768px) {
+          width: 50px;
+          height: 50px;
+        }
       }
     }
 
@@ -184,6 +208,16 @@
       p {
         font-size: 18px;
         color: #8d8d8d;
+      }
+
+      @media (max-width: 768px) {
+        h3 {
+          font-size: 19px;
+        }
+
+        p {
+          font-size: 16px;
+        }
       }
     }
 
@@ -270,6 +304,14 @@
       }
     }
 
+    @media (max-width: 425px) {
+      &-details {
+        span {
+          font-size: 15px;
+        }
+      }
+    }
+
     &-buttons {
       display: flex;
       justify-content: space-between;
@@ -313,6 +355,15 @@
         width: 210px;
         padding: 16px;
       }
+
+      @media (max-width: 425px) {
+        .go-back-btn {
+          width: 140px;
+        }
+        .pay-btn {
+          width: 140px;
+        }
+      }
     }
   }
 
@@ -350,6 +401,63 @@
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .cart {
+    &__item {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      row-gap: 10px;
+
+      &-img {
+        grid-column-start: 1;
+        grid-row-start: 1;
+
+        img {
+          transform: translateX(19px);
+        }
+      }
+
+      &-count {
+        width: 90%;
+      }
+
+      &-info {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        width: 91%;
+      }
+
+      &-price {
+        grid-column-start: 4;
+        width: 100%;
+      }
+
+      &-remove {
+        grid-column-start: 4;
+        grid-row-start: 1;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .cart {
+    &__top {
+      margin-bottom: 30px;
+    }
+
+    &__item {
+      padding-top: 16px;
+      margin-top: 0;
+      &-count {
+        width: 100%;
+      }
     }
   }
 }
