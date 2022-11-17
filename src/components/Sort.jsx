@@ -23,7 +23,6 @@ const Sort = () => {
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log(event.composedPath());
       let path = event.composedPath().includes(sortRef.current);
       if (!path) {
         setOpen(false);
@@ -65,9 +64,7 @@ const Sort = () => {
               <li
                 key={i}
                 onClick={() => onClickList(obj)}
-                className={
-                  sort.sortProperty === obj.sortProperty ? "active" : ""
-                }
+                className={sort.sortProperty === obj.sortProperty ? "active" : ""}
               >
                 {obj.name}
               </li>
