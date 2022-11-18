@@ -1,15 +1,7 @@
 import React from "react";
 
 const Categories = ({ categoryId, onChangeCategory }) => {
-  const categories = [
-    "Все",
-    "Мясные",
-    "Вегетарианская",
-    "Гриль",
-    "Острые",
-    "Закрытые",
-  ];
-
+  const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
   return (
     <div className="categories">
       <ul>
