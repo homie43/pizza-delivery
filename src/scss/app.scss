@@ -316,7 +316,7 @@ body {
       }
     }
 
-    @media (max-width: 425px) {
+    @media (max-width: 480px) {
       &-details {
         span {
           font-size: 15px;
@@ -334,6 +334,10 @@ body {
         align-items: center;
         justify-content: center;
         width: 210px;
+        @media (max-width: 480px) {
+          width: 210px;
+          margin-right: 10px;
+        }
 
         border-color: darken($color: $gray-line, $amount: 10);
 
@@ -366,6 +370,9 @@ body {
         font-weight: 600;
         width: 210px;
         padding: 16px;
+        @media (max-width: 480px) {
+          width: 210px;
+        }
       }
 
       @media (max-width: 425px) {
