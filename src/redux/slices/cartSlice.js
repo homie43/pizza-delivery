@@ -11,7 +11,7 @@ const cartSlice = createSlice({
 
   reducers: {
     addItem(state, action) {
-      const findItem = state.items.find((obj) => obj.id == action.payload.id);
+      const findItem = state.items.find((obj) => obj.id === action.payload.id);
       if (findItem) {
         findItem.count++;
       } else {
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
       }, 0);
     },
     minusItem(state, action) {
-      const findItem = state.items.find((obj) => obj.id == action.payload);
+      const findItem = state.items.find((obj) => obj.id === action.payload);
       if (findItem) {
         findItem.count--;
       }
@@ -40,6 +40,9 @@ const cartSlice = createSlice({
     },
   },
 });
+
+// созданный мной экспортируемый селектор
+export const selectCart = (state) => state.cart;
 
 export const { addItem, removeItem, minusItem, clearItems } = cartSlice.actions;
 export default cartSlice.reducer;

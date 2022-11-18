@@ -2,22 +2,25 @@ import React from "react";
 import debounce from "lodash.debounce";
 import styles from "./Search.module.scss";
 
-import { AppContext } from "../../App";
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../../redux/slices/filterSlice";
 
 const Search = () => {
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
-  const { setSearchValue } = React.useContext(AppContext);
 
   // оптимизация поиска с помощью lodash.debounce
-  // рендер будет рпоисходить через секунду после окончания ввода в инпут
+  // рендер будет происходить через секунду после окончания ввода в инпут
+  // eslint-disable-next-line
   const updateSerachValue = React.useCallback(
     debounce((str) => {
-      setSearchValue(str);
+      dispatch(setSearchValue(str));
     }, 1000),
     []
   );
 
   const onChangeInput = (e) => {
+    dispatch(setSearchValue(value));
     setValue(e.target.value);
     updateSerachValue(e.target.value);
   };

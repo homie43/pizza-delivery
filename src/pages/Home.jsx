@@ -1,8 +1,8 @@
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { setCategoryId, setCurrentPage, selectFilter } from "../redux/slices/filterSlice";
+import { selectPizzaData, fetchPizzas } from "../redux/slices/pizzaSlice";
 
 import Skeleton from "../components/Skeleton";
 import Categories from "../components/Categories";
@@ -10,13 +10,9 @@ import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination/Pagination";
 
-import { AppContext } from "../App";
-
 const Home = () => {
-  const { searchValue } = React.useContext(AppContext);
-
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.pizza);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzaData);
 
   const dispatch = useDispatch();
 
@@ -41,6 +37,7 @@ const Home = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0); // чтоб при первом рендере пользователя скроллило вверх
     getPizzas();
+    // eslint-disable-next-line
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const onChangeCategory = (id) => {

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // у редакса есть начальное состояние
 const initialState = {
+  searchValue: "",
   categoryId: 0,
   sort: {
     name: "популярности",
@@ -15,6 +16,9 @@ const filterSlice = createSlice({
   initialState,
 
   reducers: {
+    setSearchValue(state, action) {
+      state.searchValue = action.payload;
+    },
     setCategoryId(state, action) {
       state.categoryId = action.payload;
     },
@@ -27,5 +31,10 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage } = filterSlice.actions;
+// созданный мной экспортируемый селектор
+export const selectSort = (state) => state.filter.sort;
+export const selectFilter = (state) => state.filter;
+
+export const { setCategoryId, setSort, setCurrentPage, setSearchValue } =
+  filterSlice.actions;
 export default filterSlice.reducer;
