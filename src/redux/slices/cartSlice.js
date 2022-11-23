@@ -30,6 +30,7 @@ const cartSlice = createSlice({
       if (findItem) {
         findItem.count--;
       }
+      // state.items = state.items.filter((obj) => obj.count !== 0);
     },
     removeItem(state, action) {
       state.items = state.items.filter((obj) => obj.id !== action.payload);

@@ -52,7 +52,7 @@ const Home = () => {
     .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     .map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
-  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />); // рендер фейкового массива, для красивой загрузки шести скелетонов
+  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />); // рендер фейкового массива
 
   return (
     <div className="container">

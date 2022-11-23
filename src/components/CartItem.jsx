@@ -12,10 +12,14 @@ const CartItem = ({ id, title, type, price, count, imageUrl, size }) => {
     );
   };
 
+  // минусуем пиццы в корзине
   const onClickMinus = () => {
-    dispatch(minusItem(id));
+    if (count > 0) {
+      dispatch(minusItem(id));
+    }
   };
 
+  // полностью дуляет пиццы из корзины
   const onClickRemove = () => {
     if (window.confirm("Ты действительно хочешь удалить пиццу?")) {
       dispatch(removeItem(id));
@@ -82,10 +86,7 @@ const CartItem = ({ id, title, type, price, count, imageUrl, size }) => {
         <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div
-          onClick={onClickRemove}
-          className="button button--outline button--circle"
-        >
+        <div onClick={onClickRemove} className="button button--outline button--circle">
           <svg
             width="10"
             height="10"
