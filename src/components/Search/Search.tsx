@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../redux/slices/filterSlice";
 
-const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
 
@@ -22,7 +22,7 @@ const Search = () => {
     []
   );
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     dispatch(setSearchValue(value));
     setValue(e.target.value);
     updateSerachValue(e.target.value);

@@ -10,7 +10,7 @@ import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination/Pagination";
 
-const Home = () => {
+const Home: React.FC = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
@@ -23,6 +23,7 @@ const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : ``;
 
     dispatch(
+      // @ts-ignore // позже пофикшу
       fetchPizzas({
         category,
         sortBy,
@@ -40,17 +41,17 @@ const Home = () => {
     // eslint-disable-next-line
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (index: number) => {
+    dispatch(setCategoryId(index));
   };
 
-  const onChangePage = (num) => {
+  const onChangePage = (num: number) => {
     dispatch(setCurrentPage(num));
   };
 
   const pizzas = items
-    .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-    .map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
+    .filter((item: any) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+    .map((pizza: any) => <PizzaBlock key={pizza.id} {...pizza} />);
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />); // рендер фейкового массива
 

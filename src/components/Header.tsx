@@ -8,9 +8,9 @@ const Header = () => {
   // возвращаю состояние всей корзины в хедер, для отображения чсла товаров
   const { items, totalPrice } = useSelector(selectCart);
 
-  const location = useLocation(); // для того чтобы сделать перерисовку корзины при клике на нее
+  const location = useLocation();
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   return (
     <div className="header">

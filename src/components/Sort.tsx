@@ -2,7 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSort, setSort } from "../redux/slices/filterSlice";
 
-const sortList = [
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+const sortList: SortItem[] = [
   { name: "популярности 👆", sortProperty: "rating" },
   { name: "популярности 👇", sortProperty: "-rating" },
   { name: "цене 👆", sortProperty: "price" },
@@ -14,20 +19,20 @@ const Sort = () => {
   const [open, setOpen] = React.useState(false); // popup окно
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onClickList = (obj) => {
+  const onClickList = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       let path = event.composedPath().includes(sortRef.current);
       if (!path) {
         setOpen(false);
       }
-      // firefox не сработает
+      // в firefox не сработает
       // if (!event.path.includes(sortRef.current)) {
       //   setOpen(false);
       // }
