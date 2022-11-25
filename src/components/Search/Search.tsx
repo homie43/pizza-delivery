@@ -22,7 +22,8 @@ const Search: React.FC = () => {
     []
   );
 
-  const onChangeInput = (e: any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // у React есть ствой объект события: ChangeEvent, и указываю что он работает через HTMLInputElement
     dispatch(setSearchValue(value));
     setValue(e.target.value);
     updateSerachValue(e.target.value);

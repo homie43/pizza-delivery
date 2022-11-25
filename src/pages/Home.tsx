@@ -41,8 +41,8 @@ const Home: React.FC = () => {
     // eslint-disable-next-line
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const onChangeCategory = (index: number) => {
-    dispatch(setCategoryId(index));
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
   const onChangePage = (num: number) => {

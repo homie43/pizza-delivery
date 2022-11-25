@@ -27,15 +27,10 @@ const Sort = () => {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      let path = event.composedPath().includes(sortRef.current);
-      if (!path) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
-      // в firefox не сработает
-      // if (!event.path.includes(sortRef.current)) {
-      //   setOpen(false);
-      // }
     };
 
     document.body.addEventListener("click", handleClickOutside);
