@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { setCategoryId, setCurrentPage, selectFilter } from "../redux/slices/filterSlice";
 import { selectPizzaData, fetchPizzas } from "../redux/slices/pizzaSlice";
 
@@ -9,12 +9,13 @@ import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Sort from "../components/Sort";
 import Pagination from "../components/Pagination/Pagination";
+import { useAppDispatch } from "../redux/store";
 
 const Home: React.FC = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const getPizzas = async () => {
     const category = categoryId > 0 ? `category=${categoryId}` : ``;
@@ -23,13 +24,12 @@ const Home: React.FC = () => {
     const search = searchValue ? `&search=${searchValue}` : ``;
 
     dispatch(
-      // @ts-ignore // позже пофикшу
       fetchPizzas({
         category,
         sortBy,
         order,
         search,
-        currentPage,
+        currentPage: String(currentPage),
       })
     );
     window.scrollTo(0, 0);
