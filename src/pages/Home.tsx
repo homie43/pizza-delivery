@@ -41,9 +41,11 @@ const Home: React.FC = () => {
     // eslint-disable-next-line
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const onChangeCategory = (idx: number) => {
+  const onChangeCategory = React.useCallback((idx: number) => {
+    // оптимизация ре рендера
     dispatch(setCategoryId(idx));
-  };
+    // eslint-disable-next-line
+  }, []);
 
   const onChangePage = (num: number) => {
     dispatch(setCurrentPage(num));
@@ -59,7 +61,7 @@ const Home: React.FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories categoryId={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (

@@ -47,7 +47,6 @@ const cartSlice = createSlice({
       if (findItem) {
         findItem.count--;
       }
-      // state.items = state.items.filter((obj) => obj.count !== 0);
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter((obj) => obj.id !== action.payload);
