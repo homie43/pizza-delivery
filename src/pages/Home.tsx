@@ -1,8 +1,10 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
-import { setCategoryId, setCurrentPage, selectFilter } from "../redux/slices/filterSlice";
-import { selectPizzaData, fetchPizzas } from "../redux/slices/pizzaSlice";
+import { setCategoryId, setCurrentPage } from "../redux/filter/slice";
+import { fetchPizzas } from "../redux/pizza/slice";
+import { selectPizzaData } from "../redux/pizza/selectors";
+import { selectFilter } from "../redux/filter/selectors";
 
 import Skeleton from "../components/Skeleton";
 import Categories from "../components/Categories";

@@ -1,29 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "../store";
-
-type Pizza = {
-  id: string;
-  title: string;
-  types: number[];
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-};
-
-enum Status {
-  LOADING = "loading",
-  SUCCESS = "success",
-  ERROR = "error",
-}
-
-export type SearchPizzaParams = {
-  category: string;
-  sortBy: string;
-  order: string;
-  search: string;
-  currentPage: string;
-};
+import { Pizza, PizzaSliceState, SearchPizzaParams, Status } from "./types";
 
 export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>(
   "pizza/fetchPizzasStatus",
@@ -36,11 +13,6 @@ export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>(
     return data;
   }
 );
-
-interface PizzaSliceState {
-  items: Pizza[];
-  status: Status;
-}
 
 const initialState: PizzaSliceState = {
   items: [],
@@ -71,9 +43,6 @@ const pizzaSlice = createSlice({
     });
   },
 });
-
-// созданный мной экспортируемый селектор
-export const selectPizzaData = (state: RootState) => state.pizza;
 
 export const { setItems } = pizzaSlice.actions;
 export default pizzaSlice.reducer;
